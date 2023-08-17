@@ -17,15 +17,15 @@ Welcome to the Social Media Website project! This application is built using the
 
 ## Features
 
-- User registration and authentication
-- User profiles with profile pictures and customizable information
-- News feed with personalized content based on user preferences
-- Ability to post text, photos, and videos
-- Real-time interactions: liking, commenting, and messaging
-- Friend/connection management with followers and following
-- Content moderation to ensure a safe environment
-- Analytics and insights to understand user engagement
-- Third-party API integration for enhanced functionality
+- [ ] User registration and authentication
+- [ ] User profiles with profile pictures and customizable information
+- [ ] News feed with personalized content based on user preferences
+- [ ] Ability to post text, photos, and videos
+- [ ] Real-time interactions: liking, commenting, and messaging
+- [ ] Friend/connection management with followers and following
+- [ ] Content moderation to ensure a safe environment
+- [ ] Analytics and insights to understand user engagement
+- [ ] Third-party API integration for enhanced functionality
 
 ## Getting Started
 
