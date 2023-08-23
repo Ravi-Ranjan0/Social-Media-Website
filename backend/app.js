@@ -15,7 +15,7 @@ mongoose.connect(dbURL)
 
 
 app.get('/', (req, res) => {
-    res.send('Connected to backend');
+    res.send('Connected to backend ');
 })
 
 // APIs
