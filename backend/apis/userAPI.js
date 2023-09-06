@@ -25,7 +25,7 @@ router.get('/user/logout', isLoggedIn, (req, res) => {
     res.json({ success: true, message: 'User logged out successfully' });
 });
 
-router.patch('/user/update-profile', isLoggedIn, async (req, res) => {
+router.patch('/user/update', isLoggedIn, async (req, res) => {
     try {
         const userId = req.user._id;
         const updatedUser = await User.findByIdAndUpdate(
