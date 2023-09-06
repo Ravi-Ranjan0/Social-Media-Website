@@ -8,4 +8,4 @@ package-lock.json
 .env
 
 # Ignore .DS_Store
-**/.DS_Store
+.DS_Store
