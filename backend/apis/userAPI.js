@@ -17,6 +17,7 @@ router.post('/user/register', async (req, res) => {
 });
 
 router.post('/user/login', passport.authenticate('local'), (req, res) => {
+    console.log(req.user);
     res.json({ success: true, message: 'User logged in successfully' });
 });
 

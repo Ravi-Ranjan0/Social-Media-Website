@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -6,23 +6,33 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import AppleIcon from "@mui/icons-material/Apple";
 import loginimg from "../Images/login-side.webp";
+import axios from "axios";
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const userNameChangeHandler = (e) => {
-    // console.log(e.target.value);
     setUsername(e.target.value);
-    console.log(username);
   };
 
   const passwordChangeHandler = (e) => {
-    // console.log(e.target.value);
     setPassword(e.target.value);
   };
 
+  async function loginUser(data) {
+    try {
+      const res = await axios.post("http://localhost:5000/user/login", data);
+      console.log(res);
+    }
+    catch (error) {
+      console.error("Error in login user:", error.message);
+    }
+  }
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    loginUser({ username, password });
   };
 
   return (
@@ -32,7 +42,7 @@ const Login = () => {
           <div className="w-5/6 h-5/6 bg-cyan-50 rounded-2xl flex items-center">
             <div className="w-2/4 h-3/4 my-16 ml-8 bg-white  rounded-3xl">
               <h1 className="text-center p-2 text-xl font-medium">Login</h1>
-              <form>
+              <form onSubmit={onSubmitHandler}>
                 <div className="mt-5 flex justify-center items-center">
                   <div className=" border-2 border-blue-200 rounded w-3/4 py-2 px-6 text-gray-700 ">
                     <PersonIcon className="pr-2" />
@@ -56,6 +66,7 @@ const Login = () => {
                       name="password"
                       type="password"
                       placeholder="Password"
+                      onChange={passwordChangeHandler}
                       required
                     ></input>
                   </div>
@@ -71,7 +82,7 @@ const Login = () => {
                   </span>
                 </div> */}
                 <button
-                  onSubmit={onSubmitHandler}
+                  type="submit"
                   className=" w-3/4 ml-16 mt-8 bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
                 >
                   Login
