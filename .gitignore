@@ -6,3 +6,6 @@ package-lock.json
 
 #  Ignore environmental variables
 .env
+
+# Ignore .DS_Store
+.DS_Store
