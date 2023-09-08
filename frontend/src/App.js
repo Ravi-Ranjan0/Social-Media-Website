@@ -1,11 +1,10 @@
 import "./App.css";
-
+import Login from "./components/Auth/Login";
 function App() {
   return (
     <>
-      <h1>Front End</h1>
+      <Login />
     </>
   );
 }
-
 export default App;
