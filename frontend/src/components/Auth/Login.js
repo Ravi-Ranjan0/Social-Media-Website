@@ -7,10 +7,15 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import AppleIcon from "@mui/icons-material/Apple";
 import loginimg from "../Images/login-side.webp";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  let [username, setUsername] = useState("");
+  let [password, setPassword] = useState("");
+
+  const navigate = useNavigate("");
 
   const userNameChangeHandler = (e) => {
     setUsername(e.target.value);
@@ -24,9 +29,11 @@ const Login = () => {
     try {
       const res = await axios.post("http://localhost:5000/user/login", data);
       console.log(res);
+      navigate("/");
     }
     catch (error) {
       console.error("Error in login user:", error.message);
+      navigate("/login");
     }
   }
 
@@ -92,7 +99,7 @@ const Login = () => {
                     No Account yet ?{" "}
                     <span className="text-blue-600 underline underline-offset-4 cursor-pointer">
                       {" "}
-                      Register
+                      <Link to="/register">Register</Link>
                     </span>
                   </span>
                 </div>

@@ -4,6 +4,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     profilePicture: { type: String },
+    backgroundPicture: { type: String },
     bio: { type: String },
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
