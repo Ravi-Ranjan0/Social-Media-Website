@@ -11,6 +11,8 @@ import Stories from "./components/Stories";
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register'
 
+import Bio from "./components/Bio/Bio";
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -65,6 +67,10 @@ function App() {
           <Layout />
         // </ProtectedRoute>
       )
+    },
+    {
+      path: "/edit",
+      element: <Bio />
     },
     {
       path: "/login",
