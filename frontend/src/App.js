@@ -1,63 +1,49 @@
 import React, { useState } from 'react';
 import "./App.css";
-import MainLayout from "./components/MainLayout/MainLayout";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
-import Bio from "./components/Bio/Bio";
+import Activity from "./components/MainLayout/Activity";
+import Friends from "./components/MainLayout/Friends";
+import Group from "./components/MainLayout/Group";
+import Navbar from "./components/MainLayout/Navbar";
+import Posts from "./components/MainLayout/Posts";
+import Profile from "./components/MainLayout/Profile";
+import Stories from "./components/MainLayout/Stories";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register'
 
-<<<<<<< HEAD
-// let [currentUser, setCurrentUser] = useState(false);
-=======
 import {
   createBrowserRouter,
   RouterProvider,
   Navigate
 } from "react-router-dom";
->>>>>>> backend
 
-// function changeUser(user) {
-//   setCurrentUser = user;
-// }
 
-// const ProtectedRoute = ({ children }) => {
-//   if (!currentUser) {
-//     return <Navigate to="/login" />
-//   }
+function App() {
 
-//   return children;
-// }
+  const Layout = () => {
+    return (
+      <>
+        <div className="bg-zinc-100">
+          <Navbar />
+          <div className="grid grid-cols-12 gap-4 m-4">
+            <div className="col-span-2 space-y-4">
+              <Group />
+              <Friends />
+            </div>
+            <div className="col-span-7 space-y-4">
+              <Stories />
+              <Posts />
+            </div>
+            <div className="col-span-3 space-y-4">
+              <Profile />
+              <Activity />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
-<<<<<<< HEAD
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      // <ProtectedRoute>
-      <MainLayout />
-      // </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/edit",
-    element: <Bio />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-]);
-
-const App = () => {
-  return <RouterProvider router={router} />;
-};
-
-=======
   let [currentUser, setCurrentUser] = useState(false);
 
   function changeUser(user) {
@@ -97,5 +83,4 @@ const App = () => {
     </>
   );
 }
->>>>>>> backend
 export default App;
