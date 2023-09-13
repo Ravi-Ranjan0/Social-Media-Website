@@ -5,7 +5,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import AppleIcon from "@mui/icons-material/Apple";
-import loginimg from "../Images/login-side.webp";
+import loginimg from "../../Images/login-side.webp";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -30,8 +30,7 @@ const Login = () => {
       const res = await axios.post("http://localhost:5000/user/login", data);
       console.log(res);
       navigate("/");
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error in login user:", error.message);
       navigate("/login");
     }

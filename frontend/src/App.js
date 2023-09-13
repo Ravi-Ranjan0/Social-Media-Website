@@ -1,91 +1,51 @@
 // import React, { useState } from 'react';
 import "./App.css";
-import Activity from "./components/Activity";
-import Friends from "./components/Friends";
-import Group from "./components/Group";
-import Navbar from "./components/Navbar";
-import Posts from "./components/Posts";
-import Profile from "./components/Profile";
-import Stories from "./components/Stories";
-
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register'
-
+import MainLayout from "./components/MainLayout/MainLayout";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
 import Bio from "./components/Bio/Bio";
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+// let [currentUser, setCurrentUser] = useState(false);
 
-function App() {
+// function changeUser(user) {
+//   setCurrentUser = user;
+// }
 
-  const Layout = () => {
-    return (
-      <>
-        <div className="bg-zinc-100">
-          <Navbar />
-          <div className="grid grid-cols-12 gap-4 m-4">
-            <div className="col-span-2 space-y-4">
-              <Group />
-              <Friends />
-            </div>
-            <div className="col-span-7 space-y-4">
-              <Stories />
-              <Posts />
-            </div>
-            <div className="col-span-3 space-y-4">
-              <Profile />
-              <Activity />
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  }
+// const ProtectedRoute = ({ children }) => {
+//   if (!currentUser) {
+//     return <Navigate to="/login" />
+//   }
 
-  // let [currentUser, setCurrentUser] = useState(false);
+//   return children;
+// }
 
-  // function changeUser(user) {
-  //   setCurrentUser = user;
-  // }
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      // <ProtectedRoute>
+      <MainLayout />
+      // </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/edit",
+    element: <Bio />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+]);
 
-  // const ProtectedRoute = ({ children }) => {
-  //   if (!currentUser) {
-  //     return <Navigate to="/login" />
-  //   }
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
-  //   return children;
-  // }
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        // <ProtectedRoute>
-          <Layout />
-        // </ProtectedRoute>
-      )
-    },
-    {
-      path: "/edit",
-      element: <Bio />
-    },
-    {
-      path: "/login",
-      element: <Login />
-    },
-    {
-      path: "/register",
-      element: <Register />
-    }
-  ]);
-
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
-}
 export default App;
