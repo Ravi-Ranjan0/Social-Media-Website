@@ -1,4 +1,4 @@
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 import "./App.css";
 import Activity from "./components/Activity";
 import Friends from "./components/Friends";
@@ -14,6 +14,7 @@ import Register from './components/Auth/Register'
 import {
   createBrowserRouter,
   RouterProvider,
+  Navigate
 } from "react-router-dom";
 
 
@@ -43,27 +44,27 @@ function App() {
     );
   }
 
-  // let [currentUser, setCurrentUser] = useState(false);
+  let [currentUser, setCurrentUser] = useState(false);
 
-  // function changeUser(user) {
-  //   setCurrentUser = user;
-  // }
+  function changeUser(user) {
+    setCurrentUser = user;
+  }
 
-  // const ProtectedRoute = ({ children }) => {
-  //   if (!currentUser) {
-  //     return <Navigate to="/login" />
-  //   }
+  const ProtectedRoute = ({ children }) => {
+    if (!currentUser) {
+      return <Navigate to="/login" />
+    }
 
-  //   return children;
-  // }
+    return children;
+  }
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
-        // <ProtectedRoute>
+        <ProtectedRoute>
           <Layout />
-        // </ProtectedRoute>
+        </ProtectedRoute>
       )
     },
     {
