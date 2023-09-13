@@ -40,18 +40,52 @@ router.patch('/user/update', isLoggedIn, async (req, res) => {
     }
 });
 
-router.post('/user/follow/:userId', isLoggedIn, async (req, res) => {
+// following user 
+router.get('/user/:userID/follow/:followingID', async (req, res) => {
     try {
-        const userId = req.user._id;
-        const targetUserId = req.params.userId;
+        const { userID, followingID } = req.params;
 
-        await User.findByIdAndUpdate(userId, { $addToSet: { following: targetUserId } });
-        await User.findByIdAndUpdate(targetUserId, { $addToSet: { followers: userId } });
+        const currentUser = await User.findById(userID);
+        const followingUser = await User.findById(followingID);
 
-        res.json({ success: true, message: 'Followed successfully' });
-    } catch (error) {
-        res.json({ success: false, message: 'Error following user' });
+        if (!currentUser || !followingUser) {
+            return res.status(404).send("User not found");
+        }
+
+        // Check if the users are already following each other
+        if (
+            currentUser.following.includes(followingID) &&
+            followingUser.followers.includes(userID)
+        ) {
+            return res.status(400).send("Users are already following each other");
+        }
+
+        // Use $addToSet to prevent duplicate entries in arrays
+        currentUser.following.addToSet(followingID);
+        followingUser.followers.addToSet(userID);
+
+        await currentUser.save();
+        await followingUser.save();
+
+        res.status(201).send("Followed user successfully!!!");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
     }
 });
+
+
+// finding user if exist
+router.get('/user/search', async (req, res) => {
+    const { username } = req.query;
+
+    const allUsers = await User.find({});
+
+    const users = allUsers.filter((user) => user.username.includes(username));
+
+    res.send(users);
+
+})
+
 
 module.exports = router;
