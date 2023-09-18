@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import "./App.css";
 import Activity from "./components/MainLayout/Activity";
 import Friends from "./components/MainLayout/Friends";
@@ -7,6 +7,7 @@ import Navbar from "./components/MainLayout/Navbar";
 import Posts from "./components/MainLayout/Posts";
 import Profile from "./components/MainLayout/Profile";
 import Stories from "./components/MainLayout/Stories";
+
 
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register'
@@ -18,7 +19,11 @@ import {
 } from "react-router-dom";
 
 
+import { AuthContext } from './components/Context/AuthContext';
+
 function App() {
+
+  const { user } = useContext(AuthContext);
 
   const Layout = () => {
     return (
@@ -44,36 +49,19 @@ function App() {
     );
   }
 
-  let [currentUser, setCurrentUser] = useState(false);
-
-  function changeUser(user) {
-    setCurrentUser = user;
-  }
-
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to="/login" />
-    }
-
-    return children;
-  }
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <ProtectedRoute>
-          <Layout />
-        </ProtectedRoute>
-      )
+      element: <Layout />
     },
     {
       path: "/login",
-      element: <Login />
+      element: user === null ? <Login /> : <Layout />
     },
     {
       path: "/register",
-      element: <Register />
+      element: user === null ? <Register /> : <Layout />
     }
   ]);
 

@@ -7,9 +7,10 @@ const { isLoggedIn } = require('../middlewares/authVerification');
 router.post('/user/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        await User.register(new User({ username, email }), password);
+        const newUser = await User.register(new User({ username, email }), password);
         console.log("NEW USER REGISTERED!!!");
-        res.status(201).json({ success: true, message: 'User registered successfully' });
+        console.log(newUser);
+        res.status(201).json({ success: true, message: 'User registered successfully', newUser });
     } catch (err) {
         console.log(err);
         res.status(501).json({ success: false, message: err.message });
@@ -18,7 +19,7 @@ router.post('/user/register', async (req, res) => {
 
 router.post('/user/login', passport.authenticate('local'), (req, res) => {
     console.log(req.user);
-    res.json({ success: true, message: 'User logged in successfully' });
+    res.json({ success: true, message: 'User logged in successfully', user: req.user });
 });
 
 router.get('/user/logout', isLoggedIn, (req, res) => {

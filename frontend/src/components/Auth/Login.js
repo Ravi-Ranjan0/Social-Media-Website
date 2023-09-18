@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -6,16 +6,19 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import AppleIcon from "@mui/icons-material/Apple";
 import loginimg from "../../Images/login-side.webp";
-import axios from "axios";
+// import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { loginCall } from "../../APIcalls";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
 
   const navigate = useNavigate("");
+
+  const { user, dispatch } = useContext(AuthContext);
 
   const userNameChangeHandler = (e) => {
     setUsername(e.target.value);
@@ -25,20 +28,23 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  async function loginUser(data) {
-    try {
-      const res = await axios.post("http://localhost:5000/user/login", data);
-      console.log(res);
-      navigate("/");
-    } catch (error) {
-      console.error("Error in login user:", error.message);
-      navigate("/login");
-    }
-  }
+  // async function loginUser(data) {
+  //   try {
+  //     const res = await axios.post("http://localhost:5000/user/login", data);
+  //     console.log(res);
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error("Error in login user:", error.message);
+  //     navigate("/login");
+  //   }
+  // }
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-    loginUser({ username, password });
+    // loginUser({ username, password });
+    await loginCall({ username, password }, dispatch);
+    // console.log(user);
+    
   };
 
   return (
