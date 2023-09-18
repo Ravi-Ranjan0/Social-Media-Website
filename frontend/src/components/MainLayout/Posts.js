@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaCommentDots } from "react-icons/fa";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 import { FiMoreHorizontal } from "react-icons/fi";
 import { PiSmileyDuotone } from "react-icons/pi";
@@ -12,6 +14,13 @@ import { BiHide } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdReportProblem } from "react-icons/md";
 
+// paragraph clip
+const paragraphstyles = {
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: "vertical",
+  overflow: "hidden",
+  display: "-webkit-box",
+};
 const imguser =
   "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60";
 const imgpost =
@@ -20,10 +29,34 @@ const imgavatar =
   "https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60";
 const Posts = () => {
   const [isopen, setisopen] = useState(false);
-  
+  const [showEmoji, setShowEmoji] = useState(false);
+  const [text, setText] = useState("");
+  const [isOpenParagraph, setisOpenParagraph] = useState(false);
+  const [showReadMoreButton, setShowReadMoreButton] = useState(false);
+
+  // paragraph truncate setting
+
+  const ref = useRef(null);
+  useEffect(() => {
+    if (ref.current) {
+      console.log(ref.current.scrollHeight, ref.current.clientHeight);
+      setShowReadMoreButton(
+        ref.current.scrollHeight !== ref.current.clientHeight
+      );
+    }
+  }, []);
+
+  // add emoji
+  const addEmoji = (e) => {
+    const sym = e.unified.split("_");
+    const codeArray = [];
+    sym.forEach((el) => codeArray.push("0x" + el));
+    let emoji = String.fromCodePoint(...codeArray);
+    setText(text + emoji);
+  };
 
   return (
-    <div className="flex flex-col gap-2 bg-white  border border-slate-200 rounded-lg ">
+    <div className="flex flex-col gap-2 bg-white  rounded-lg ">
       <div className="flex flex-row justify-between items-center mt-2 mx-4">
         <div className="flex flex-row items-center gap-5">
           <img
@@ -93,8 +126,8 @@ const Posts = () => {
         <img src={imgpost} alt="" className="w-full" />
       </div>
 
-      <div>
-        <p className="truncate mx-2">
+      <div className="mx-2">
+        <p ref={ref} style={isOpenParagraph ? null : paragraphstyles}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -103,7 +136,14 @@ const Posts = () => {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <span className="text-red-500 cursor-pointer mx-2 hover:underline underline-offset-2 shadow-sm shadow-orange-200">See more</span>
+        {showReadMoreButton && (
+          <button
+            className="text-red-500 cursor-pointer mx-2 hover:underline underline-offset-2 shadow-sm shadow-orange-200"
+            onClick={() => setisOpenParagraph(!isOpenParagraph)}
+          >
+            {isOpenParagraph ? "See Less..." : "See More..."}
+          </button>
+        )}
       </div>
       <div className="mx-3">
         <hr class="h-px my-10 bg-gray-200 border-0 dark:bg-gray-300 mb-2" />
@@ -114,16 +154,36 @@ const Posts = () => {
           <PiSmileyDuotone
             size="25"
             color="grey"
-            className=" cursor-pointer absolute mx-10"
+            className=" cursor-pointer absolute mx-2"
+            onClick={() => setShowEmoji(!showEmoji)}
           />
-          <BsFillImageFill
-            size="22"
-            color="grey"
-            className="cursor-pointer absolute mx-2"
-          />
+          {/* emoji picker component */}
+          {showEmoji && (
+            <div className="absolute bottom-[100%] right-2">
+              <Picker
+                data={data}
+                emojiSize={20}
+                emojiButtonSize={28}
+                onEmojiSelect={addEmoji}
+                maxFrequentRows={0}
+              />
+            </div>
+          )}
+
+          <label className="mb-5">
+            <input type="file" className="hidden"></input>
+
+            <BsFillImageFill
+              size="22"
+              color="grey"
+              className="cursor-pointer absolute mx-[24rem]"
+            />
+          </label>
           <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             placeholder="Add commentor...."
-            className= "flex bg-gray-100 w-[28rem] h-8 cursor-text rounded-md ring-blue ring-2 focus:outline-none"
+            className="flex  border grow  px-4 h-8 bg-transparent outline-none resize-none w-[28rem]  cursor-text rounded-full ring-blue ring-2 "
           ></textarea>
         </div>
         <div className="flex felx-row  mt-2">
@@ -132,7 +192,6 @@ const Posts = () => {
             color="grey"
             className="cursor-pointer md:mx-6 "
           />
-         
 
           <FaCommentDots
             color="grey"
