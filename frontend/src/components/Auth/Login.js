@@ -47,6 +47,10 @@ const Login = () => {
     
   };
 
+  if(user !== null) {
+    navigate('/');
+  }
+
   return (
     <div>
       <div className="h-screen bg-white w-full flex justify-center items-center">

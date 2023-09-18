@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState , useContext} from 'react';
 import "./App.css";
 import Activity from "./components/MainLayout/Activity";
 import Friends from "./components/MainLayout/Friends";
@@ -8,7 +8,6 @@ import Posts from "./components/MainLayout/Posts";
 import Profile from "./components/MainLayout/Profile";
 import Stories from "./components/MainLayout/Stories";
 
-
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register'
 
@@ -17,13 +16,10 @@ import {
   RouterProvider,
   Navigate
 } from "react-router-dom";
-
-
 import { AuthContext } from './components/Context/AuthContext';
 
-function App() {
 
-  const { user } = useContext(AuthContext);
+function App() {
 
   const Layout = () => {
     return (
@@ -49,19 +45,23 @@ function App() {
     );
   }
 
-
+  // const user = useContext(AuthContext);
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />
+      element: (
+        // <ProtectedRoute>
+          <Layout />
+        // </ProtectedRoute>
+      )
     },
     {
       path: "/login",
-      element: user === null ? <Login /> : <Layout />
+      element: <Login />
     },
     {
       path: "/register",
-      element: user === null ? <Register /> : <Layout />
+      element: <Register />
     }
   ]);
 
