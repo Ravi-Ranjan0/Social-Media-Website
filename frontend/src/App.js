@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useContext} from 'react';
 import "./App.css";
 import Activity from "./components/MainLayout/Activity";
 import Friends from "./components/MainLayout/Friends";
@@ -16,6 +16,7 @@ import {
   RouterProvider,
   Navigate
 } from "react-router-dom";
+import { AuthContext } from './components/Context/AuthContext';
 
 
 function App() {
@@ -44,20 +45,7 @@ function App() {
     );
   }
 
-  let [currentUser, setCurrentUser] = useState(false);
-
-  function changeUser(user) {
-    setCurrentUser = user;
-  }
-
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to="/login" />
-    }
-
-    return children;
-  }
-
+  // const user = useContext(AuthContext);
   const router = createBrowserRouter([
     {
       path: "/",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import EmailIcon from "@mui/icons-material/Email";
@@ -9,6 +9,7 @@ import AppleIcon from "@mui/icons-material/Apple";
 import loginimg from "../../Images/login-side.webp";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +17,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate("");
+
+  const { user, dispatch } = useContext(AuthContext);
 
   const userNameChangeHandler = (e) => {
     setUsername(e.target.value);
@@ -33,9 +36,11 @@ const Register = () => {
     try {
       const res = await axios.post("http://localhost:5000/user/register", data);
       console.log(res);
-      navigate("/login");
-    } catch (error) {
-      console.error("Error registering user:", error);
+      // navigate("/login");
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.user });
+    } catch (err) {
+      console.error("Error registering user:", err);
+      dispatch({ type: "LOGIN_FAILURE", payload: err });
     }
   }
 
@@ -43,6 +48,10 @@ const Register = () => {
     e.preventDefault();
     registerUser({ username, email, password });
   };
+
+  if (user !== null) {
+    navigate('/');
+  }
 
   return (
     <div>
