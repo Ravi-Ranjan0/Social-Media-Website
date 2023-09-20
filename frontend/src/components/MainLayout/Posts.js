@@ -13,6 +13,7 @@ import { MdNotificationsActive } from "react-icons/md";
 import { BiHide } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdReportProblem } from "react-icons/md";
+import EditPost from "./EditPost";
 
 // paragraph clip
 const paragraphstyles = {
@@ -82,7 +83,7 @@ const Posts = () => {
                     className="absolute mt-1 cursor-pointer"
                     size="18"
                   />
-                  <button className="mx-6 text-base ">Save Post</button>
+                  <EditPost />
                 </div>
                 {/* Turn notifications */}
                 <div className="realtive p-2">

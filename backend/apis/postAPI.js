@@ -15,16 +15,15 @@ router.get('/post', async (req, res) => {
 });
 
 // CREATING POSTS
-router.post('/post/new', isLoggedIn, async (req, res) => {
-    try {
-        const { img, desc } = req.body;
-        const newPost = new Post(img, desc);
-        await newPost.save();
-        res.status(201).json('Post added successfully');
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+router.post("/post/new", async (req, res) => {
+  try {
+    const { img, desc } = req.body;
+    const newPost = new Post(img, desc);
+    await newPost.save();
+    res.status(201).json("Post added successfully");
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // UPDATING POST
