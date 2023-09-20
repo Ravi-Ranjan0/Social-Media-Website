@@ -2,6 +2,8 @@ import React from "react";
 import { BsImageFill } from "react-icons/bs";
 import { HiVideoCamera } from "react-icons/hi2";
 import { RiVideoFill } from "react-icons/ri";
+import CreatePost from "./CreatePost";
+
 const users = [
   {
     name: "Ravi Ranjan",
@@ -14,6 +16,8 @@ const users = [
 ];
 
 const Profile = () => {
+  // const handleClick = () => {};
+
   return (
     <div className="bg-white rounded-lg p-4">
       <div className="py-2 uppercase text-slate-300">Stories</div>
@@ -69,10 +73,7 @@ const Profile = () => {
             </div>
             <div className="basis-1/4 w-full mb-2 space-y-4">
               <div className=" flex gap-4 relative rounded-md">
-                <div className="flex items-center place-content-center gap-2 w-full rounded-md border-0 py-1.5 bg-gray-50 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6">
-                  <BsImageFill className="text-blue-400" />
-                  <p>Image</p>
-                </div>
+                <CreatePost />
                 <div className="flex items-center place-content-center gap-2 w-full rounded-md border-0 py-1.5 bg-gray-50 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6">
                   <RiVideoFill className="text-pink-500" />
                   <p>Video</p>
