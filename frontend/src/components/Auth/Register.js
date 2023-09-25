@@ -34,7 +34,7 @@ const Register = () => {
 
   async function registerUser(data) {
     try {
-      const res = await axios.post("http://localhost:5000/user/register", data);
+      const res = await axios.post("http://localhost:8080/user/register", data);
       console.log(res);
       // navigate("/login");
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.user });
@@ -50,7 +50,7 @@ const Register = () => {
   };
 
   if (user !== null) {
-    navigate('/');
+    navigate("/");
   }
 
   return (

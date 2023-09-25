@@ -1,9 +1,6 @@
 import React, { Fragment,useState } from 'react';
 import Modal from './Modal';
 
-
-
-
 const Edit=()=>{
        // Initialize state for user details
    const [userDetails, setUserDetails] = useState({

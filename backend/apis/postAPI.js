@@ -7,7 +7,7 @@ const { isLoggedIn } = require('../middlewares/authVerification');
 router.get('/post', async (req, res) => {
     try {
         const allPost = await Post.find();
-        res.status(201).json(allPost);
+        res.status(201).json({posts : allPost});
     }
     catch (error) {
         res.status(500).json({ message: error.message });
@@ -15,12 +15,12 @@ router.get('/post', async (req, res) => {
 });
 
 // CREATING POSTS
-router.post('/post/new', isLoggedIn, async (req, res) => {
+router.post("/post/new", async (req, res) => {
     try {
         const { img, desc } = req.body;
-        const newPost = new Post(img, desc);
-        await newPost.save();
-        res.status(201).json('Post added successfully');
+        const newPost = await new Post({ img, desc });
+        newPost.save();
+        res.status(201).json("POST ADDED SUCCESSFULLY!!!");
     }
     catch (error) {
         res.status(500).json({ message: error.message });

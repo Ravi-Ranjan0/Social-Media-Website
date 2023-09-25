@@ -58,7 +58,7 @@ const people = [
 
 const Friends = () => {
   return (
-    <div className="bg-white rounded-lg max-w-max p-4">
+    <div className="bg-white rounded-lg w-full p-4">
       <div className="flex items-center  py-2 place-content-between">
         <div className="uppercase text-slate-300">Friends</div>
         <div className="flex">

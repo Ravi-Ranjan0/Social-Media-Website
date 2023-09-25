@@ -26,7 +26,7 @@ const people = [
 const Group = () => {
   return (
     <>
-      <div className="bg-white rounded-lg max-w-max p-4 basis-1/12">
+      <div className="bg-white rounded-lg w-full p-4 basis-1/12">
         <div className="flex py-2 place-content-between">
           <div className="uppercase text-slate-300">My Group</div>
           <div className="float-right">

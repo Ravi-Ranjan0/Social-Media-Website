@@ -13,6 +13,7 @@ import { MdNotificationsActive } from "react-icons/md";
 import { BiHide } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdReportProblem } from "react-icons/md";
+import EditPost from "./EditPost";
 
 // paragraph clip
 const paragraphstyles = {
@@ -27,7 +28,7 @@ const imgpost =
   "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60";
 const imgavatar =
   "https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60";
-const Posts = () => {
+const Posts = (props) => {
   const [isopen, setisopen] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
   const [text, setText] = useState("");
@@ -67,7 +68,7 @@ const Posts = () => {
           <span className="text-base md:text-base">Username</span>
         </div>
         <div className="flex flex-row justify-end">
-          <span className="mx-4 text-slate-400">12 minutes ago</span>
+          <span className="mx-4 text-slate-400">{props.time}</span>
 
           <FiMoreHorizontal
             onClick={() => setisopen((prev) => !prev)}
@@ -82,7 +83,7 @@ const Posts = () => {
                     className="absolute mt-1 cursor-pointer"
                     size="18"
                   />
-                  <button className="mx-6 text-base ">Save Post</button>
+                  <EditPost />
                 </div>
                 {/* Turn notifications */}
                 <div className="realtive p-2">
@@ -123,18 +124,12 @@ const Posts = () => {
         </div>
       </div>
       <div className=" mx-2">
-        <img src={imgpost} alt="" className="w-full" />
+        <img src={props.image} alt="" className="w-full" />
       </div>
 
       <div className="mx-2">
         <p ref={ref} style={isOpenParagraph ? null : paragraphstyles}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          {props.description}
         </p>
         {showReadMoreButton && (
           <button
